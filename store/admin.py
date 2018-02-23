@@ -5,4 +5,5 @@ from .models import *
 
 admin.site.register(Customer)
 admin.site.register(Transaction)
-admin.site.register(Item)
+admin.site.register(Drink)
+admin.site.register(Food)
