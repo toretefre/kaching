@@ -46,7 +46,10 @@ class Transaction(models.Model):
     )
 
     # Connects with multiple items
-    items = models.ManyToManyField(Item)
+    items = models.ForeignKey(
+        'Item',
+        on_delete=models.CASCADE,
+    )
 
     # For use as shopping cart: False until transaction is completed
     checked_out = models.BooleanField(models.BooleanField(default=False))
