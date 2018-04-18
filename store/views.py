@@ -5,6 +5,6 @@ from .models import Customer
 # Create your views here.
 
 def storefront(request):
-    print(Customer.objects.all())
-    return HttpResponse("Storefront here")
+	customers = Customer.objects.all()
+	return render(request,'store/accountSelection.html',{'customers':customers})
 
