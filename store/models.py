@@ -4,12 +4,17 @@ from django.db import models
 
 
 class Customer(models.Model):
-    id = models.AutoField(primary_key=True, unique=True)
-    mail = models.CharField(max_length=200)
+    username = models.CharField(primary_key=True, unique=True, max_length=15)
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     balance = models.PositiveIntegerField(default=1)
     mifare = models.CharField(blank=True, max_length=15)
+    orders = models.ForeignKey(
+        'Order',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -38,16 +43,16 @@ class Drink(Item):
     milliliters = models.PositiveIntegerField()
 
 
-class Transaction(models.Model):
+class Order(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
-    customer = models.ForeignKey(
+    customerForOrder = models.ForeignKey(
         'Customer',
         on_delete=models.CASCADE,
     )
 
     # Connects with multiple items
     items = models.ForeignKey(
-        'Item',
+        'Drink',
         on_delete=models.CASCADE,
     )
 
