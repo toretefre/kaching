@@ -8,13 +8,7 @@ class Customer(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     balance = models.PositiveIntegerField(default=1)
-    mifare = models.CharField(blank=True, max_length=15)
-    orders = models.ForeignKey(
-        'Order',
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
+    mifare = models.CharField(blank=True, max_length=14)
 
     def __str__(self):
         return self.first_name + " " + self.last_name
@@ -46,17 +40,19 @@ class Drink(Item):
 class Order(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     customerForOrder = models.ForeignKey(
-        'Customer',
+        Customer,
         on_delete=models.CASCADE,
+        null=True
     )
 
     # Connects with multiple items
     items = models.ForeignKey(
-        'Drink',
+        Drink,
         on_delete=models.CASCADE,
+        null=True
     )
 
-    # For use as shopping cart: False until transaction is completed
+    # For use as shopping cart: False until order is completed
     checked_out = models.BooleanField(models.BooleanField(default=False))
 
     def __str__(self):
