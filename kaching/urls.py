@@ -18,6 +18,7 @@ from django.urls import path
 from store import views
 
 urlpatterns = [
+    path('', views.customerSelection),
     path('admin/', admin.site.urls),
-    path('', views.storefront),
+    path('itemSelection', views.itemSelection),
 ]

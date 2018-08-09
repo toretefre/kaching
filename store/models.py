@@ -21,20 +21,15 @@ class Item(models.Model):
     price = models.PositiveIntegerField()
     EAN = models.IntegerField(null=True, blank=True)
     active_item = models.BooleanField(default=True)
-
-    class Meta:
-        abstract = True
+    categories = (
+        ('FO', 'Food'),
+        ('DR', 'Drink'),
+    )
+    category = models.CharField(max_length=5, choices=categories)
+    size = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
-
-
-class Food(Item):
-    grams = models.PositiveIntegerField()
-
-
-class Drink(Item):
-    milliliters = models.PositiveIntegerField()
 
 
 class Order(models.Model):
@@ -46,14 +41,12 @@ class Order(models.Model):
     )
 
     # Connects with multiple items
-    items = models.ForeignKey(
-        Drink,
-        on_delete=models.CASCADE,
-        null=True
+    items = models.ManyToManyField(
+        Item
     )
 
     # For use as shopping cart: False until order is completed
-    checked_out = models.BooleanField(models.BooleanField(default=False))
+    paid = models.BooleanField(models.BooleanField(default=False))
 
     def __str__(self):
         return self.id

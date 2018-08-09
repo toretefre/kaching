@@ -1,0 +1,7 @@
+{% extends '../../templates/base.html' %}
+
+<h1>customerSelection.html</h1>
+
+{% for customer in customers %}
+	<a href="{% url 'itemSelection' %}">{{ customer }}</a>
+{% endfor %}
