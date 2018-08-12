@@ -22,3 +22,16 @@ def customerSelection(request):
         'customerSelection.html',
         {'customers': customer}
     )
+
+
+def finishOrder(request):
+    selectedCustomer = 0 # request.customer?
+    selectedCustomer.balance = 0 # should be fetched from model
+    selectedItems = []
+    basketvalue = 0
+
+    for selectedItem in selectedItems:
+        basketvalue += selectedItem.value
+
+    if basketvalue < selectedCustomer.balance:
+        selectedCustomer.balance -= basketvalue
